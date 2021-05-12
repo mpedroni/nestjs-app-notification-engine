@@ -12,8 +12,10 @@ export class AppController {
     await this.appService.sendEmail(email, name);
   }
 
-  @MessagePattern('notification-phone')
-  sendPhone(@Payload() data: any): void {
-    console.log(data.value);
+  @MessagePattern('notification-sms')
+  async sendSMS(@Payload() data: any): Promise<void> {
+    const { phone, name } = data.value;
+
+    await this.appService.sendSMS(phone, name);
   }
 }
