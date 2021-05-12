@@ -7,8 +7,9 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @MessagePattern('notification-email')
-  sendEmail(@Payload() data: any): void {
-    console.log(data.value);
+  async sendEmail(@Payload() data: any): Promise<void> {
+    const { email, name } = data.value;
+    await this.appService.sendEmail(email, name);
   }
 
   @MessagePattern('notification-phone')
